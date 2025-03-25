@@ -1,4 +1,4 @@
-# Trolls, Fangs and Goblins - Tower Defense v2.0
+# Trolls, Fangs and Goblins - Tower Defense v3.0
 
 <div align="center">
 
@@ -17,7 +17,7 @@ Experience the game in its full glory! Download our standalone desktop applicati
 ##### 4GB RAM
 ##### 500MB free disk space
 
-[⬇️ Download Windows Executable (v2.0)](link-to-your-exe-file)
+[⬇️ Download Windows Executable (v2.0)](https://www.dropbox.com/scl/fi/trx11xr14wa18lolr9vro/Trolls-Fangs-and-Goblins-TD-Setup-2.0.0.zip?rlkey=9dh6uuvy3puvpgy4hbskepg2w&st=q6cii9de&dl=0)
 
 </div>
 
