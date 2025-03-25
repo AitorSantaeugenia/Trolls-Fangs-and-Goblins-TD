@@ -4,20 +4,31 @@
 
 ![Menu showcase](https://aitorsantaeugenia.github.io/Trolls_fangs_and_goblins_TD/images/loadScreen/trolls_fangs_goblins_tittle.png)
 
+</div>
+
 ## 🎮 Quick Start
 
+<div align="center">
+
 ### [🌐 Play Online](https://aitorsantaeugenia.github.io/Trolls_fangs_and_goblins_TD/)
-[![Play Now](https://user-images.githubusercontent.com/14861253/193691083-1e088077-50e8-441a-aab6-86a25f7cd800.png)](https://aitorsantaeugenia.github.io/Trolls_fangs_and_goblins_TD/)
+
+</div>
 
 ### 💾 Desktop Version
 Experience the game in its full glory! Download our standalone desktop application built with Electron.js for smoother performance, offline play, and native desktop integration. No browser needed - just pure tower defense action! 🚀
 
 ### 🖥️ System Requirements
-##### Windows 10 or later
-##### 4GB RAM
-##### 500MB free disk space
+- Windows 10 or later
+- 4GB RAM
+- 500MB free disk space
 
-[⬇️ Download Windows Executable (v2.0)](https://www.dropbox.com/scl/fi/trx11xr14wa18lolr9vro/Trolls-Fangs-and-Goblins-TD-Setup-2.0.0.zip?rlkey=9dh6uuvy3puvpgy4hbskepg2w&st=q6cii9de&dl=0)
+### ⬇️ Download Links
+- [Primary Download (Dropbox)](https://www.dropbox.com/scl/fi/trx11xr14wa18lolr9vro/Trolls-Fangs-and-Goblins-TD-Setup-2.0.0.zip?rlkey=9dh6uuvy3puvpgy4hbskepg2w&st=q6cii9de&dl=1) - Fastest download
+- [Mirror Download (Google Drive)](https://drive.google.com/file/d/1-K1B3-bolk60SeMPWwq_z9VL5moOXhhM/view?usp=sharing) - Alternative source
+
+<div align="center">
+
+> 🛡️ **All downloads are virus-free and scanned regularly. Feel free to verify on [VirusTotal](https://www.virustotal.com)!**
 
 </div>
 
@@ -27,7 +38,11 @@ A classic tower defense game built with vanilla JavaScript and HTML5 Canvas, ins
 
 Available both as a web application and a desktop version (powered by Electron.js), offering the same great experience across platforms.
 
+<div align="center">
+
 ![Gameplay Preview](https://user-images.githubusercontent.com/14861253/193632986-90237e93-9b04-4f94-bd35-38c4a6542634.gif)
+
+</div>
 
 ## ⭐ Features
 
@@ -66,10 +81,20 @@ Available both as a web application and a desktop version (powered by Electron.j
 ## 📸 Game Previews
 
 ### 🏰 Main Menu
+
+<div align="center">
+
 ![Menu showcase](https://user-images.githubusercontent.com/14861253/193631952-c34ab736-4e26-4f64-a237-14f08c9ad117.gif)
 
+</div>
+
 ### ⚔️ Gameplay
+
+<div align="center">
+
 ![Game showcase](https://user-images.githubusercontent.com/14861253/193631642-9428f64c-d1be-4023-b25f-8dd26a9bcf6a.gif)
+
+</div>
 
 ## 🛠️ Development Roadmap
 
@@ -112,10 +137,20 @@ Available both as a web application and a desktop version (powered by Electron.j
 ## 🎁 Easter Eggs
 
 ### ⚡ The Snap
+
+<div align="center">
+
 ![Thanos snap](https://user-images.githubusercontent.com/14861253/193633195-82f51828-d720-4fd9-93ac-009bd099e99c.gif)
 
+</div>
+
 ### 💀 Game Over
+
+<div align="center">
+
 ![Lose screen](https://user-images.githubusercontent.com/14861253/193632223-b74ceea0-e742-43fb-8724-1370567e9a74.gif)
+
+</div>
 
 ## 🤝 Contributing
 
