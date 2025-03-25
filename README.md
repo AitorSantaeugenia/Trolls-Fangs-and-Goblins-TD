@@ -10,7 +10,7 @@
 
 <div align="center">
 
-### [🌐 Play Online](https://aitorsantaeugenia.github.io/Trolls_fangs_and_goblins_TD/)
+### [🌐 Play Online](https://trolls-fangs-td.web.app/)
 
 </div>
 
