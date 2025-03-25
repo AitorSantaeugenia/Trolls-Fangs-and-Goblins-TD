@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlID">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/instructionUI_minion.css" />
+  <link rel="stylesheet" href="css/instructionUI_level.css" />
+  <link rel="stylesheet" href="css/instructionUI_cheatC.css" />
+  <title>Trolls, fangs & goblins - Tower defense</title>
+  <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Play" /> -->
+  <link rel="icon" type="image/png" href="images/utils/favicon.png" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700" rel="stylesheet">
+  <audio src="sounds/GameSounds/moregold.mp3" id="moreGoldSound"></audio>
+  <audio src="sounds/Songs/musicbg.mp3" id="backgroundMusic"></audio>
+  <audio src="sounds/GameSounds/victorySound.mp3" id="victoryMusic"></audio>
+  <audio src="sounds/Songs/twistedTreelineSong.mp3" id="twistedTreelineSong"></audio>
+  <audio src="sounds/Songs/powerofthehordeSong.mp3" id="pothSong"></audio>
+  <audio src="sounds/Songs/deadSong.mp3" id="defeatMusic"></audio>
+  <audio src="sounds/GameSounds/inevitable.mp3" id="thanosInevitable"></audio>
+  <audio src="sounds/GameSounds/newgame.mp3" id="startingGameAudio"></audio>
+</head>
+
+<body>
+  <!-- STARTING MENU -->
+  <div id="startingMenu" class="startingMenu">
+    <!-- <p></p> -->
+    <!-- Saving this here, change when upload
+    https://aitorsantaeugenia.github.io/TD_Project1/images/td.png
+  -->
+    <div class="titleSubtitle">
+      <div class="title">
+        <a href="" class="noDrag"><img
+            src="images/loadScreen/trolls_fangs_goblins_tittle.png"
+            alt="Logo game" class="noDrag gameTitle"></a>
+      </div>
+      <div class="subtitle">
+        <img src="images/utils/td.png" alt="Logo game"
+          class="noDrag logoGameTitle" />
+      </div>
+    </div>
+    <div class="selectionLevel">
+      <div class="levelOne tooltip" id="selectedEasy">
+        <img
+          src="images/loadScreen/selectLevel/firstLevel.webp"
+          alt="First level" class="levelSelection noDrag" id="firstLevel">
+        <span class="tooltiptext colorGreenText" activationLvl="false" id="selectedTrueEasy"
+          style="visibility: hidden;">
+          Easy
+        </span>
+      </div>
+      <div class="levelTwo tooltip" id="selectedNormal">
+        <img
+          src="images/loadScreen/selectLevel/secondLevel.webp"
+          alt="Second level" class="levelSelection noDrag" id="secondLevel">
+        <span class="tooltiptext" activationLvl="false" id="selectedTrueNormal" style="visibility: hidden;">
+          Normal
+        </span>
+      </div>
+      <div class="levelThree tooltip" id="selectedHard">
+        <img
+          src="images/loadScreen/selectLevel/thirdLevel.webp"
+          alt="Third level" class="levelSelection noDrag" id="thirdLevel">
+        <span class="tooltiptext colorYellowText" activationLvl="false" id="selectedTrueHard"
+          style="visibility: hidden;">
+          Hard
+        </span>
+      </div>
+      <div class="levelFour tooltip" id="selectedHell">
+        <img
+          src="images/loadScreen/selectLevel/fourthLevel.webp"
+          alt="Fourth level" class="levelSelection noDrag" id="fourthLevel">
+        <span class="tooltiptext colorRedText" activationLvl="false" id="selectedTrueHell" style="visibility: hidden;">
+          🔥 Hell 🔥
+        </span>
+      </div>
+
+    </div>
+
+    <div class="buttonsStartingMenu">
+      <div class="marginAuto btnUIstartingMenu">
+        <button id="startGame" class="btn noDrag modalBtn"><img
+            src="images/loadScreen/otherText/start.png"
+            alt="Start button" class="smallerImg noDrag"></button>
+      </div>
+
+      <!-- HIDDEN !!!! - We will implement this later -->
+      <!-- Need to think what to do with ranked, if we can't implement it with vanillaJS -->
+      <div class="doubleBtnDiv btnUIstartingMenu ">
+        <button id="customGameBtn" class="btn noDrag modalBtn hidden"><img
+            src="images/loadScreen/otherText/customgame.png"
+            alt="Custom game button" class="smallerImgBtn noDrag"></button>
+        <button id="rankedGameBtn" class="btn noDrag modalBtn margin-leftDivBtn hidden"><img
+            src="images/loadScreen/otherText/rankedGame.png"
+            alt="Ranked game button" class="smallerImgBtn noDrag"></button>
+      </div>
+
+      <div class="marginAuto btnUIstartingMenu">
+        <button id="instructionsBtn" class="btn noDrag modalBtn "><img
+            src="images/loadScreen/otherText/instructions.png"
+            alt="Instructions button" class="smallerImgBtn noDrag"></button>
+        <br>
+      </div>
+
+      <!-- GitHub Link -->
+      <div class="github-link">
+        <a href="https://github.com/AitorSantaeugenia" target="_blank" class="github-icon">
+          <i class="fa fa-github"></i>
+          <span>Aitor J. Santaeugenia</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- INGAME SETTINGS FOR CANVAS, OTHER MODALS, RESTART BUTTONS AND UI -->
+  <div id="canvasContainer" class="hidden">
+    <div class="canvasContainerAll">
+      <!-- CHEAT CONTAINER -->
+      <div id="cheatCodes" class="hidden">
+        <div class="inputContainer" id="inputContainerId">
+          >> <input type="text" value="Insert cheatcode..." id="inputCheatCode">
+        </div>
+      </div>
+
+      <!-- CANVAS DIV CONTAINER -->
+      <div class="canvasDiv">
+        <div id="canvasAndUIContainer" style="position: relative;">
+          <!-- TOP UI MENU -->
+          <div id="topUIMenu">
+            <div class="soundOffOn">
+              <img src="images/utils/soundgreen.png"
+                alt="Sound on" id="yesSound" class="logoSoundSound buttonSelectedBorder" isActive="true">
+              <img src="images/utils/nosoundred.png"
+                alt="Sound off" id="noSound" class="logoSoundNoSound" isActive="false">
+            </div>
+            <div id="uiTopMenuFirst">
+              <p id="wavesRemaining"></p>
+              <p id="enemiesRemaining"></p>
+            </div>
+            <div id="uiTopMenuSecond">
+              <p id="cheatCodesText">Press ENTER to do something...</p>
+            </div>
+            <div id="uiTopMenuThird">
+              <p>Press ESC to PAUSE</p>
+            </div>
+          </div>
+          <!-- CANVAS -->
+          <canvas id="canvas" width="1200" height="700"></canvas>
+          <div id="overCanvasPauseMenu">
+            <p class="pauseFont">Game paused</p>
+            <button id="continuePauseBtn" class="btn noDrag pauseBtn"><img
+                src="images/loadScreen/otherText/continue.png"
+                alt="Continue button" class="noDrag" style="width: 180px;"></button>
+            <button id="restartPauseBtn" class="btn noDrag pauseBtn"><img
+                src="images/loadScreen/otherText/restart.png"
+                alt="Restart button" class="noDrag" style="width: 89px;"></button>
+            <button id="instructionsPauseBtn" class="btn noDrag pauseBtn"><img
+                src="images/loadScreen/otherText/instructions.png"
+                alt="Instructions button" class="noDrag" style="width: 139px"></button>
+            <button id="toMenuPauseBtn" class="btn noDrag pauseBtn"><img
+                src="images/loadScreen/otherText/exit.png  "
+                alt="To menu button" class="noDrag" style="width: 90px;"></button>
+
+          </div>
+          <!-- Easter egg, losing screen - coffin dancers -->
+          <div id="divCoffinDancers">
+            <img src="images/utils/deathcoffingif.webp"
+              alt="coffingGifDancers" id="coffinDancers" class="hidden">
+          </div>
+
+        </div>
+        <!-- UI CONTAINER -->
+        <div class="lowerMenuTowers" id="gameMenu">
+
+          <div class="turretSelector">
+
+            <div class="costGold">
+              <img src="images/utils/vida.png"
+                style="width: 40px !important; "><span id="hpPlayer" class="costTurrets"
+                style="margin-top:10px !important">20</span>
+            </div>
+
+            <div class="costGold">
+              <img src="images/utils/coin.png"
+                style="width: 90px !important; margin-bottom: -15px; margin-right: 9px;"><span id="goldPlayer"
+                class="costTurrets" style="margin-top:-5px !important">$0</span>
+            </div>
+
+            <div class="imageGif">
+              <div id="flameTurretMessage" class="message hidden">Hmmm, how to unlock this one?</div>
+              <img src="images/utils/gif.webp">
+            </div>
+            <div class="costGold goldTurretCost">
+              <p class="uiMenuText">Tower price</p>
+              <img src="images/utils/gold.png"
+                style="margin-bottom: -5px;"><span class="costTurrets" id="idGoldTurretCost">$100 </span>
+            </div>
+
+            <div class="turretsMenuToPick">
+              <div>
+                <img id="sandTurret" class="turretToSelect"
+                  src="images/towers/sandTurret.png">
+                <img id="cataTurret" class="turretToSelect"
+                  src="images/towers/stoneTurret.png">
+                <img id="slowTurret" class="turretToSelect"
+                  src="images/towers/freezeTurret.png">
+                <img id="heavyTurret" class="turretToSelect cursorNA"
+                  src="images/towers/heavyTurret_unk.png">
+              </div>
+              <div>
+                <img id="heavyTurret2" class="turretToSelect cursorNA"
+                  src="images/towers/heavyTurret_unk.png">
+                <img id="doubleBarrelTurret" class="turretToSelect cursorNA"
+                  src="images/towers/doubleBarrel_unk.png">
+                <img id="doubleBarrelTurret2" class="turretToSelect cursorNA"
+                  src="images/towers/doubleBarrel_unk.png">
+                <img id="flameTurret" class="turretToSelect"
+                  src="images/towers/flameTurret_unk.png">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- hidden -->
+      <div id="endGameMenu" class="hidden">
+        <div id="restartingTimerDiv" style="margin-top:80px">
+          <p id="restartingTimerText"></p>
+        </div>
+        <div id="endGameButtonsMenuDiv" style="margin-top:40px">
+          <button id="restartButtonEndGameMenu" class="btn noDrag">
+            <img
+              src="images/loadScreen/otherText/restart.png"
+              alt="Restart button" class="smallerImg noDrag" style="margin-top: 5px;"></button>
+          <button id="exitButtonEndGameMenu" class="btn noDrag">
+            <img
+              src="images/loadScreen/otherText/exit.png"
+              alt="Exit button" class="smallerImgExitBtn noDrag" style="margin-top: 5px;"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTRUCTIONS MENU UI -->
+  <div id="instructionsGameUI" class="hidden">
+    <div class="closeIcoX">
+      <img src="images/menuUI/icons/close_ico.png"
+        alt="Close button" class="xButtonClose noDrag" id="closeXBtnInstructions" />
+
+      <div class="attentionHover small20pxText hidden"><i>You can close this window by clicking</i> <b><span
+            class="colorRedText">ESC</span>
+        </b><i>key</i>.
+      </div>
+    </div>
+
+    <div>
+      <p class="instructionsP">
+        Instructions
+      </p>
+    </div>
+    <div class="acordion-panel">
+      <button class="accordion accordionButton">Towers <span class="hover-text-accordion">Click to check
+          turrets</span>
+      </button>
+      <div class="panel">
+        <div class="container">
+          <div class="wrapper">
+
+            <div class="slide">
+              <div class="slide-img">
+                <img src="images/towers/sandTurret.png"
+                  alt="Sand Turret">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Sand Turret</h2>
+                <p>Lowest damage turret with a high rate of fire.
+                  Orcs and other minions run like cowards when they see a bunch of it.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Damage: 5</li>
+                  <li>Range: 450</li>
+                  <li>Rate: 12</li>
+                  <li>Cost: 70</li>
+                </ul>
+                <span class="slide-content-quote">"Mass this, they will fear." - Ja'var-tar, the builder</span>
+
+                <div class="slide-button">
+                  <div class="btnAcordionP button-left">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionP button-right">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="slide">
+              <div class="slide-img">
+                <img src="images/towers/stoneTurret.png"
+                  alt="Stone Turret">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Stone Turret</h2>
+                <p>Lowest fire rate but hits like an asteroid with the largest firing range.
+                  Villagers thought it could be impossible to fire those big rocks.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Damage: 20</li>
+                  <li>Range: 255</li>
+                  <li>Rate: 8</li>
+                  <li>Cost: 70</li>
+                </ul>
+                <span class="slide-content-quote">"High cost, highly efficient." - Gor'Mund, the peddler</span>
+
+                <div class="slide-button">
+                  <div class="btnAcordionP button-left">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionP button-right">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="slide">
+              <div class="slide-img">
+                <img
+                  src="images/towers/freezeTurret.png"
+                  alt="Snow Turret">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Snow Turret</h2>
+                <p>Slow rate of fire and lowest damage. But slows for one second everything it hits.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Damage: 0.5</li>
+                  <li>Range: 255</li>
+                  <li>Rate: 10</li>
+                  <li>Cost: 200</li>
+                </ul>
+                <span class="slide-content-quote">"Freeze, you idiot, you fucking idiot..." - Ty'ron, the great</span>
+
+                <div class="slide-button">
+                  <div class="btnAcordionP button-left">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionP button-right">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide">
+              <div class="slide-img">
+                <img src="images/towers/flameTurret.png"
+                  alt="BFT Turret">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">B.F.T</h2>
+                <p>Highest damage, highest rate of fire, highest range.
+                  The blueprint of this turret was found under Flagor'ath, the magic volcano.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Damage: 35</li>
+                  <li>Range: 450</li>
+                  <li>Rate: 40</li>
+                  <li>Cost: 300</li>
+                </ul>
+                <span class="slide-content-quote">"Power unlocked by witchcraft." - Chee'tah, himself</span>
+
+                <div class="slide-button">
+                  <div class="btnAcordionP button-left">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionP button-right">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <button class="accordion">Minions & bosses <span class="hover-text-accordion">Click to check
+          minions & bosses</span></button>
+      <div class="panel">
+        <div class="container">
+          <div class="wrapper">
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/minions.webp"
+                  alt="Minions">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Minions</h2>
+                <p>Acolytes from around the world trying to help the evil lords. Will they succeed?</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 300</li>
+                  <li>Speed: 1.4</li>
+                  <li>Gold given: 15</li>
+                </ul>
+                <span class="slide-content-quote">"Look at those idiots... Wrong team, pals!" - Keel'ah, the
+                  hunter</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/Ospirtes/multiple_gif_hell_minions.webp"
+                  alt="Hell minions">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Hell minions</h2>
+                <p>Stronger than regular minions. Only appears in the fourth map.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 400</li>
+                  <li>Speed: 1.4</li>
+                  <li>Gold given: 20</li>
+                </ul>
+                <span class="slide-content-quote">"Where the <b>hell</b> did they come from? Oh wait, I see."
+                  <br>- Vela'vir, the explorer</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/dragon.webp"
+                  alt="Dragon">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Ragnarök Dragon</h2>
+                <p>A dragon that caused the destruction of an old world. Looks big but it's not that strong.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 500</li>
+                  <li>Speed: 1.4</li>
+                  <li>Gold given: 50</li>
+                </ul>
+                <span class="slide-content-quote">"A parrot, a parrot, run!" - Key'lo, the drinkmaster</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/dragon_boss.webp"
+                  alt="Dragon boss">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Chimera dragon</h2>
+                <p>Big tank dragon from outer worlds. No one saw them flying, so no one knows how they came here.
+                  Kill it, it's worth... Or at least try it.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 1000</li>
+                  <li>Speed: 1</li>
+                  <li>Gold given: 80</li>
+                </ul>
+                <span class="slide-content-quote">"Yo mama so fat, she can't fly, hahahaha." <br>- Key'lo, already
+                  drunk</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/lord_2.webp"
+                  alt="Lord">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Mercenary lord</h2>
+                <p>Be careful with these. The only thing they know to do is run when everything is going bad. And believe
+                  me, they do and fast.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 2000</li>
+                  <li>Speed: 1.8</li>
+                  <li>Gold given: 100</li>
+                </ul>
+                <span class="slide-content-quote">"Do you have shelter for an old friend?" <br>- A mercenary
+                  lord switching sides, again.</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/lord.webp"
+                  alt="Hell's commander">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Hell's commander</h2>
+                <p>Leaders, terrifying, commanders of hell. If you see one, better prepare because it's a sign that the
+                  end is near.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 5000</li>
+                  <li>Speed: 1</li>
+                  <li>Gold given: 150</li>
+                </ul>
+                <span class="slide-content-quote">"Lead, travel to the living world, kill, destroy, and in the end,
+                  you'll gather information for me." <br>- San'tan, King of hell.</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/queen.webp"
+                  alt="Succubus">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Succubus</h2>
+                <p>Master of lies. Don't believe them. They will try to be your friend, seduce you, and of course, kill
+                  you. In the end you will join the evil army.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 800</li>
+                  <li>Speed: 1.4</li>
+                  <li>Gold given: 70</li>
+                </ul>
+                <span class="slide-content-quote">"The reason that hell is full." - Ee'Lashee, the boy
+                  wonder.</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/king.webp"
+                  alt="King of hell">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">San'tan, King of hell</h2>
+                <p>The ruler of hell, king of evil. Once he shows up, better be prepared.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 10000</li>
+                  <li>Speed: 1</li>
+                  <li>Gold given: 250</li>
+                </ul>
+                <span class="slide-content-quote">"This world is mine." - San'tan, King of hell.</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/dragon_lord_boss.webp"
+                  alt="Gal'roch, hellfire dragon">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Gal'roch, hellfire dragon</h2>
+                <p>The greatest beast in hell. His presence terrifies all humankind.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 20000</li>
+                  <li>Speed: 1.2</li>
+                  <li>Gold given: 500</li>
+                </ul>
+                <span class="slide-content-quote">"I'll keep your fangs as a reward." - Thra'llags, the
+                  dragonslayer.</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideMin">
+              <div class="slide-img-min">
+                <img
+                  src="images/enemies/gifs/bosses/snow_lord.webp"
+                  alt="Mo'koo, the ancient winter">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Mo'koo, the ancient winter</h2>
+                <p>He was supposed to be our savior, the one who could freeze hell. No one knows how he joined the evil
+                  side. Legends says that when he walk causes earthquakes.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Hit points: 25000</li>
+                  <li>Speed: 1</li>
+                  <li>Gold given: 500</li>
+                </ul>
+                <span class="slide-content-quote">"Traitor, traitor! Your big size won't stop me from stabbing your mountain ass..." - Chee'tah, himself.</span>
+
+                <div class="slide-button-min">
+                  <div class="btnAcordionMin button-left-min">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionMin button-right-min">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <button class="accordion">Levels <span class="hover-text-accordion">Click to check
+          levels</span></button>
+      <div class="panel">
+        <div class="container">
+          <div class="wrapper">
+
+            <div class="slideLevel">
+              <div class="slide-img-lvl">
+                <img
+                  src="images/loadScreen/selectLevel/firstLevel.webp"
+                  alt="Easy level">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Easy level</h2>
+                <p>Level to learn how to play the game. Nearly impossible to lose.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Lives: 30</li>
+                  <li>Gold: 800</li>
+                  <li>Waves: 4</li>
+                  <li>Bosses: Ragnarök Dragon</li>
+                </ul>
+
+                <div class="slide-button-lvl">
+                  <div class="btnAcordionLvl button-left-lvl">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionLvl button-right-lvl">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideLevel">
+              <div class="slide-img-lvl">
+                <img
+                  src="images/loadScreen/selectLevel/secondLevel.webp"
+                  alt="Normal level">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Normal level</h2>
+                <p>Harder but still manageable. A wide variety of monsters to hunt.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Lives: 20</li>
+                  <li>Gold: 600</li>
+                  <li>Waves: 5</li>
+                  <li>Bosses: Chimera dragon | Mercenary lord | Hell's commander</li>
+                </ul>
+
+                <div class="slide-button-lvl">
+                  <div class="btnAcordionLvl button-left-lvl">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionLvl button-right-lvl">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideLevel">
+              <div class="slide-img-lvl">
+                <img
+                  src="images/loadScreen/selectLevel/thirdLevel.webp"
+                  alt="Hard level">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Hard level</h2>
+                <p>Fewer lives, less gold, more minions, and stronger bosses.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Lives: 20</li>
+                  <li>Gold: 500</li>
+                  <li>Waves: 7</li>
+                  <li>Bosses: Ragnarök Dragon | Chimera dragon | Mercenary lord | Succubus | Hell's commander | Mo'koo
+                  </li>
+
+                </ul>
+
+                <div class="slide-button-lvl">
+                  <div class="btnAcordionLvl button-left-lvl">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionLvl button-right-lvl">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slideLevel">
+              <div class="slide-img-lvl">
+                <img
+                  src="images/loadScreen/selectLevel/fourthLevel.webp"
+                  alt="Hell level">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Hell level</h2>
+                <p>Hardest level of the game. Every evil creature is there.</p>
+
+                <ul class="slide-content-ul">
+                  <li>Lives: 10</li>
+                  <li>Gold: 500</li>
+                  <li>Waves: 10</li>
+                  <li>Bosses: All</li>
+                </ul>
+
+                <span class="slide-content-quote-lvl">Evil minions get stronger in this place.</span>
+
+                <div class="slide-button-lvl">
+                  <div class="btnAcordionLvl button-left-lvl">
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                  </div>
+                  <div class="btnAcordionLvl button-right-lvl">
+                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <button class="accordion">Cheat codes <span class="hover-text-accordion">Click to check
+          cheat codes</span></button>
+      <div class="panel">
+        <div class="container">
+          <div class="wrapper">
+
+            <div class="slideCheatC">
+              <div class="slide-img-cheat">
+                <img src="images/utils/thanos_snap.webp"
+                  alt="Cheat codes">
+              </div>
+
+              <div class="slide-content">
+                <h2 class="slide-content-h2">Cheat codes</h2>
+                <p>Press <b>ENTER</b> while playing to enter the cheat code you want.</p>
+
+                <ul class="slide-content-ul-cheat">
+                  <li>greedisgood: <span class="slide-content-ul-cheat-span">grants 200 gold</span></li>
+                  <li>hollymolly: <span class="slide-content-ul-cheat-span">grants 1000 gold</span></li>
+                  <li>whosyourdaddy: <span class="slide-content-ul-cheat-span">unlocks the B.F.T</span></li>
+                  <li>ezwin: <span class="slide-content-ul-cheat-span">instant win</span></li>
+                  <li>4lose: <span class="slide-content-ul-cheat-span">instant lose</span></li>
+                  <li>thanos: <span class="slide-content-ul-cheat-span">Oh, snap!, he's just inevitable</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="closeButtonInstructionsUI">
+      <button id="instructionsGameCloseBtn" class="btn noDrag modalBtn"><img
+          src="images/loadScreen/otherText/close.png"
+          alt="Close button" class="smallerImgExitBtn noDrag"></button><br>
+    </div>
+  </div>
+
+  </div>
+  <!-- CUSTOM GAME MENU UI -->
+  <!-- We will implement this later, there is a lot of work creating 3x4 maps-->
+  <div id="customGameUI" class="hidden">
+    <div class="closeIcoX">
+      <img src="images/menuUI/icons/close_ico.png"
+        alt="Close button" class="xButtonClose noDrag" id="closeXBtnCustom">
+
+      <div class="attentionHover small20pxText hidden"><i>You can close this window by clicking</i> <b><span
+            class="colorRedText">ESC</span>
+        </b><i>key</i>.
+      </div>
+    </div>
+    <div>
+      <p class="instructionsP">Custom Game</p>
+      <p class="instructionsP2">Work in progress</p>
+      <p class="instructionsCG">We want to create a "biome" for each map, with each path, meaning 4x3 maps, which is a huge undertaking. We also need to tweak some scripts to make it fully customizable (player will be able to
+        chose minions, bosses, waves, lives, towers, etc)</p>
+    </div>
+    <div>
+      <button id="customGameUIStartingBTN" class="btn noDrag modalBtn" style="margin-bottom:20px"><img
+          src="images/loadScreen/otherText/start.png"
+          alt="Start button" class="smallerImgExitBtn noDrag"></button>
+      <button id="customGameCloseBtn" class="btn noDrag modalBtn"><img
+          src="images/loadScreen/otherText/close.png"
+          alt="Close button" class="smallerImgExitBtn noDrag"></button>
+    </div>
+  </div>
+  <!-- Ranked GAME MENU UI -->
+  <!-- We will implement this later, or maybe not, we don't care about ranked if we can't do it with vanillaJS -->
+  <div id="rankedGameUI" class="hidden">
+    <div class="closeIcoX">
+      <img src="images/menuUI/icons/close_ico.png"
+        alt="Close button" class="xButtonClose noDrag" id="closeXBtnRanked">
+
+      <div class="attentionHover small20pxText hidden"><i>You can close this window by clicking</i> <b><span
+            class="colorRedText">ESC</span>
+        </b><i>key</i>.
+      </div>
+    </div>
+    <div>
+      Ranked Game
+    </div>
+    <div>
+      <button id="rankedGameUIStartingBTN" class="btn noDrag modalBtn" style="margin-bottom:20px"><img
+          src="images/loadScreen/otherText/start.png"
+          alt="Start button" class="smallerImgExitBtn noDrag"></button>
+      <button id="rankedGameCloseBtn" class="btn noDrag modalBtn"><img
+          src="images/loadScreen/otherText/close.png"
+          alt="Close button" class="smallerImgExitBtn noDrag"></button>
+    </div>
+  </div>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Press+Start+2P&display=swap');
+  </style>
+  <script type="text/javascript"
+    src="js/Enemies/dustEffect.js"></script>
+  <script type="text/javascript"
+    src="js/Engine/waypoint.js"></script>
+  <script type="text/javascript"
+    src="js/Engine/wave.js"></script>
+  <script type="text/javascript"
+    src="js/Towers/projectiles.js"></script>
+  <script type="text/javascript"
+    src="js/Towers/towers.js"></script>
+  <script type="text/javascript"
+    src="js/Engine/HPbar.js"></script>
+  <script type="text/javascript"
+    src="js/Enemies/enemy.js"></script>
+  <script type="text/javascript"
+    src="js/Enemies/minions.js"></script>
+  <script type="text/javascript"
+    src="js/Enemies/bosses/bosses.js"></script>
+  <script type="text/javascript"
+    src="js/Engine/start.js"></script>
+  <script type="text/javascript"
+    src="js/init.js"></script>
+</body>
+
+</html>

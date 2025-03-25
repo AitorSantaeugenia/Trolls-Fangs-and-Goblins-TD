@@ -1,0 +1,37 @@
+{
+  "name": "trolls-fangs-and-goblins-td",
+  "version": "2.0.0",
+  "description": "A tower defense game made in vanilla JavaScript & Canvas",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "Aitor Santaeugenia",
+  "license": "BY-NC-SA",
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.trollsfangsandgoblins.td",
+    "productName": "Trolls, Fangs and Goblins TD",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "images/icons/app.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Trolls, Fangs and Goblins TD",
+      "installerIcon": "images/icons/app.ico",
+      "uninstallerIcon": "images/icons/app.ico",
+      "installerHeaderIcon": "images/icons/app.ico"
+    }
+  }
+} 
