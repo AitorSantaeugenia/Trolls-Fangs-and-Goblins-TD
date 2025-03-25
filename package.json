@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "build:web": "rmdir /s /q web-dist 2>nul & mkdir web-dist & echo Copying files... & copy index.html web-dist\\ & echo Copying JS... & xcopy /E /I /Y js web-dist\\js & echo Copying CSS... & xcopy /E /I /Y css web-dist\\css & echo Copying images... & xcopy /E /I /Y images web-dist\\images & echo Copying sounds... & xcopy /E /I /Y sounds web-dist\\sounds & echo Build complete!"
   },
   "author": "Aitor Santaeugenia",
   "license": "BY-NC-SA",
